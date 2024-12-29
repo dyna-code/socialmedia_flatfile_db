@@ -529,7 +529,6 @@ int main(int argc, char* argv[]) {
             {
                 FlatFile flatFile("users_copy.csv", "posts_copy.csv", "engagements_copy.csv");
                 flatFile.loadFlatFile();
-
                 ASSERT_WITH_MESSAGE(flatFile.getPosts()[post_id_to_update]->views == expected_count,
                     "Post content not updated correctly, expected: '" + std::to_string(expected_count) + "' but got: '" + std::to_string(flatFile.getPosts()[post_id_to_update]->views) + "'");
             }
