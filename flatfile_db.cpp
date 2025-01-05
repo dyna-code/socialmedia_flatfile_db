@@ -246,7 +246,7 @@ class FlatFile {
         /// @return List of post_id and comment pair, ordered by post id and comment.
         std::vector<std::pair<int,std::string>> getAllUserComments(int user_id) {
             std::vector<std::pair<int,std::string>> comments;
-        
+            std::cout << "test for invalid user id" << std::endl;
             for (const auto& engagement : engagements) {
                 comments.emplace_back(engagement.second->postId, engagement.second->comment);
 
@@ -567,7 +567,7 @@ int main(int argc, char* argv[]) {
             std::vector<std::pair<int, std::string>> found_comments = flatFile.getAllUserComments(user_id);
             ASSERT_WITH_MESSAGE(found_comments.size() == 0, "Invalid user id should return empty comments");
         }
-
+        
         // test for valid user id
         {
             std::vector<std::pair<int, std::string>> expected_comments;
