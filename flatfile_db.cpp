@@ -246,31 +246,22 @@ class FlatFile {
         /// @return List of post_id and comment pair, ordered by post id and comment.
         std::vector<std::pair<int,std::string>> getAllUserComments(int user_id) {
             std::vector<std::pair<int,std::string>> comments;
-            std::cout << "test for invalid user id" << std::endl;
-            for (const auto& engagement : engagements) {
-                comments.emplace_back(engagement.second->postId, engagement.second->comment);
-
-                
-                if (engagement.second->username == getUsers()[user_id]->username && engagement.second->type == "comment") {
-                    std::cout << "Adding comment: " << engagement.second->comment << std::endl;
-                    comments.emplace_back(engagement.second->postId, engagement.second->comment);
-                    //comments.emplace_back(engagement.second->postId, engagement.second->comment);
-                    comments.emplace_back(engagement.second->postId, engagement.second->comment);
+            auto it = engagements.find(user_id);
+            if(it != engagements.end())
+            {
+                for (const auto& engagement : engagements) {
+                    if (engagement.second->username == getUsers()[user_id]->username && engagement.second->type == "comment") {
+                        //std::cout << "Adding comment: " << engagement.second->comment << std::endl;
+                        comments.emplace_back(engagement.second->postId, engagement.second->comment);
+                    }
                 }
-            }
-        
-            for(const auto& engagement : engagements) {
-                comments.emplace_back(engagement.second->postId, engagement.second->comment);
-                comments.emplace_back(engagement.second->postId, engagement.second->comment);
-            }
-        
+            }        
             std::sort(comments.begin(), comments.end(), [](const auto& a, const auto& b) {
                 if (a.first == b.first) {
                     return a.second < b.second;
                 }
                 return a.first < b.first;
             });
-        
             return comments;
         }
 
